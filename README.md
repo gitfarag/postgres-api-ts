@@ -14,7 +14,7 @@ database schema and and API route information can be found in the [requirements 
 
 ### Test mode
 
-! IMPORTANT : if you are using windows operating system so kindly replace
+IMPORTANT : if you are using windows operating system so kindly replace
 test script line in package.jsom with this line of code :-
 {"test": "db-migrate up -e test && npm run build &&set NODE_ENV=test&& jasmine && npm run reset-test-db"
 }

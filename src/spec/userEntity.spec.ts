@@ -11,7 +11,7 @@ describe("users Class (create test user)", () => {
   it(`It should create user`, async () => {
     const result = await _User.createUser(data);
     expect(result).toEqual({
-      id: 1,
+      id: 2,
       name: "ahmed",
       username: "admin",
       password: "secret",
@@ -21,7 +21,7 @@ describe("users Class (create test user)", () => {
   it(`It should get admin user`, async () => {
     const result = await _User.getUserByUsername("admin");
     expect(result).toEqual({
-      id: 1,
+      id: 2,
       name: "ahmed",
       username: "admin",
       password: "secret",
@@ -42,7 +42,7 @@ describe("users Class (create test user)", () => {
   });
   it(`It should delete  user`, async () => {
     const users = await _User.index();
-    const uID = users[0].id as number;
+    const uID = users[1].id as number;
 
     const result = await _User.deleteUser(uID);
     expect(result).toEqual(`User deleted with ID: ${uID}`);

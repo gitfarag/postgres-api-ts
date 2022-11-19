@@ -1,5 +1,4 @@
 import ProductEntity, { Product } from "../entities/product.entity";
-
 const _Product = new ProductEntity();
 const data: Product = {
   name: "iphone",
@@ -7,6 +6,8 @@ const data: Product = {
   price: 600,
   qty: 400,
 };
+
+
 
 describe("product Class ", () => {
   it(`It should create product`, async () => {
