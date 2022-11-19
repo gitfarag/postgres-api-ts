@@ -10,7 +10,7 @@ import {
 
 const productRouter = Router();
 
-productRouter.get("/", authGuard, getAllProducts);
+productRouter.get("/", getAllProducts);
 
 productRouter.post("/add", authGuard, addProduct);
 
