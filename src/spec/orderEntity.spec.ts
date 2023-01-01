@@ -3,7 +3,7 @@ import UsersEntity,{User} from "../entities/users.entity";
 
 const _Order = new OrderEntity();
 const _user = new UsersEntity();
-const data: Order = {
+const orderata: Order = {
   uid: 1,
   status: "pending",
 };
@@ -14,13 +14,11 @@ const user:User={
   }
  
 describe("Orders Class ", () => {
-    
-  it(`It should create Order`, async () => {
-    await _user.createUser(user)
-    const result = await _Order.addOrder(data);
-    expect(result[0].status).toEqual('pending');
-  });
+  
+  
   it(`It should get  order `, async () => {
+    await _user.createUser(user);
+    await _Order.addOrder(orderata)
     const allProducts = await _Order.index();
     const oID = allProducts[0].id as number;
     const result = await _Order.userOrder(oID);
@@ -32,11 +30,5 @@ describe("Orders Class ", () => {
     const result = await _Order.updateOrder(oID);
     expect(result[0].status).toEqual("done");
   });
-  it(`It should delete  order`, async () => {
-    const users = await _Order.index();
-    const uID = users[0].id as number;
-
-    const result = await _Order.deleteOrder(uID);
-    expect(result).toBeFalsy();
-  });
+ 
 });

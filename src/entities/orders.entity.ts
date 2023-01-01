@@ -20,7 +20,7 @@ class OrderEntity {
   // get order by id
   async addOrder(order: Order): Promise<Order[]> {
     const { uid, status } = order;
-    const { rows } = await db.query(
+    const  {rows}  = await db.query(
       "INSERT INTO orders (uid,status) VALUES ($1,$2) RETURNING *",
       [uid, status]
     );

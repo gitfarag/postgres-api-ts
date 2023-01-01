@@ -1,14 +1,14 @@
 {
     "name": "express-server-postgres",
     "version": "1.0.0",
-    "description": "Another Nodejs application",
+    "description": "storeFront Nodejs application",
     "main": "dist/app.js",
     "scripts": {
         "prestart": "npm run build",
         "start": "node dist/app.js",
         "dev": "nodemon src/app.ts",
         "create-test-db": "db-migrate db:create test_db",
-        "reset-test-db": "db-migrate reset -e test",
+        "testr": "db-migrate reset -e test",
         "db:up": "npx db-migrate up",
         "db:down": "npx db-migrate reset",
         "lint": "eslint src/**/*.{ts,json}",
@@ -16,13 +16,13 @@
         "prettier": "prettier --write src/**/*.{ts,json}",
         "build": "npx tsc",
         "pretest": "npm run lint:fix",
-        "test": "db-migrate up -e test && npm run build && NODE_ENV=test jasmine && npm run reset-test-db"
+        "test": "db-migrate up -e test && npm run build && NODE_ENV=test jasmine && db-migrate reset -e test"
     },
     "keywords": [
         "nodejs",
         "typescript"
     ],
-    "author": "Mahmoud Kassem",
+    "author": "Ahmed Farag",
     "license": "ISC",
     "devDependencies": {
         "@types/bcrypt": "^5.0.0",

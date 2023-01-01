@@ -11,25 +11,35 @@ const bcryptSecret = process.env.BCRYPT_SECRET as string;
 const JWTSecret = (process.env.JWT_SECRET as string) ?? "my-secret-key";
 
 class AuthService {
+
   async getall(): Promise<User[]> {
-    const createdUser = await entity.index();
-    return createdUser;
+    try {
+      const createdUser = await entity.index();
+      return createdUser;
+    } catch (error:any) {
+      return error?.message
+    }
+
   }
 
   async register(user: User): Promise<User> {
-    user.password = await bcrypt.hash(user.password + bcryptSecret, saltRounds);
-    const createdUser = await entity.createUser(user);
+
+    try {
+      user.password = await bcrypt.hash(user.password + bcryptSecret, saltRounds);
+      const createdUser = await entity.createUser(user);
     return createdUser;
+    } catch (error:any) {
+      return error?.message
+    }
+
   }
 
   async updateuser(user: User): Promise<User> {
     try {
-      user.password = await bcrypt.hash(
+        user.password = await bcrypt.hash(
         user.password + bcryptSecret,
-        saltRounds
-      );
-      const res = await entity.updateuser(user);
-
+        saltRounds);
+        const res = await entity.updateuser(user);
       return res;
     } catch (error: any) {
       return error.message;
@@ -67,11 +77,12 @@ class AuthService {
   generateToken(user: User): string {
     // generate token
     const token = jwt.sign({ sub: user.username }, JWTSecret, {
-      expiresIn: 6000, // expires in 24 hours
+      expiresIn: '7d', // expires in 24 hours
     });
 
     return token;
   }
+
 }
 
 const authGuard = (async (

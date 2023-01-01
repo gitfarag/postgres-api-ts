@@ -10,6 +10,7 @@ const getAllProducts = (async (req: Request, res: Response): Promise<void> => {
     res.status(500).send(error.message);
   }
 }) as RequestHandler;
+
 const addProduct = (async (req: Request, res: Response): Promise<void> => {
   try {
     const product = req.body;
@@ -19,6 +20,7 @@ const addProduct = (async (req: Request, res: Response): Promise<void> => {
     res.send(error.message);
   }
 }) as RequestHandler;
+
 const getProductById = (async (req: Request, res: Response): Promise<void> => {
   try {
     const id = req.query.id as string;
@@ -54,8 +56,8 @@ const deleteProduct = (async (req: Request, res: Response): Promise<void> => {
 
 export {
   getAllProducts,
-  addProduct,
   getProductById,
-  deleteProduct,
-  updateProductByname,
+  addProduct, /* {Token Required} */ 
+  deleteProduct, /* {Token Required} */ 
+  updateProductByname, /* {Token Required} */ 
 };

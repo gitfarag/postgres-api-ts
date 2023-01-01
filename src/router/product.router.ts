@@ -12,9 +12,9 @@ const productRouter = Router();
 
 productRouter.get("/", getAllProducts);
 
-productRouter.post("/add", authGuard, addProduct);
+productRouter.post("/add",  authGuard, addProduct);
 
-productRouter.get("/product", authGuard, getProductById);
+productRouter.get("/product",  getProductById);
 
 productRouter.put("/update", authGuard, updateProductByname);
 
