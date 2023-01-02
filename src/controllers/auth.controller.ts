@@ -44,8 +44,8 @@ const updateUser = (async (req: Request, res: Response): Promise<void> => {
 
 const deleteUser = (async (req: Request, res: Response): Promise<void> => {
   try {
-    const { id } = req.body;
-    const deleteUser = await _authService.deleteUser(parseInt(id));
+    const user = req.body;
+    const deleteUser = await _authService.deleteUser(user);
     res.json(deleteUser).status(200);
   } catch (error) {
     throw new Error("error happened in ctrl ");

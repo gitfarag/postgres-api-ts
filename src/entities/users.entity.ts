@@ -38,12 +38,13 @@ class UsersEntity {
     return rows[0];
   }
 
-  async deleteUser(id: number): Promise<string> {
+  async deleteUser(user:User): Promise<string> {
     try {
+      const id:number = user.id as unknown as number
       await db.query("DELETE FROM users WHERE id = $1", [id]);
       return `User deleted with ID: ${id}`;
     } catch (error) {
-      return `cannot delete user ${id}`;
+      return `cannot delete user`;
     }
   }
 

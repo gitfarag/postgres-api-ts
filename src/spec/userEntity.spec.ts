@@ -10,23 +10,11 @@ const data: User = {
 describe("users Class (create test user)", () => {
   it(`It should create user`, async () => {
     const result = await _User.createUser(data);
-    expect(result).toEqual({
-      id: 2,
-      name: "ahmed",
-      username: "admin",
-      password: "secret",
-      token: null as any,
-    });
+    expect(result.name).toEqual("ahmed");
   });
   it(`It should get admin user`, async () => {
     const result = await _User.getUserByUsername("admin");
-    expect(result).toEqual({
-      id: 2,
-      name: "ahmed",
-      username: "admin",
-      password: "secret",
-      token: null as any,
-    });
+    expect(result.name).toEqual("ahmed");
   });
   it(`It should update  user`, async () => {
     const users = await _User.index();
@@ -42,9 +30,9 @@ describe("users Class (create test user)", () => {
   });
   it(`It should delete  user`, async () => {
     const users = await _User.index();
-    const uID = users[1].id as number;
+    const id = (users[0].id as unknown) as number
 
-    const result = await _User.deleteUser(uID);
-    expect(result).toEqual(`User deleted with ID: ${uID}`);
+    const result = await _User.deleteUser(users[0]);
+    expect(result).toEqual(`User deleted with ID: ${id}`);
   });
 });

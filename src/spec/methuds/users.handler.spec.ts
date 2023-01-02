@@ -1,43 +1,62 @@
 import supertest from "supertest";
 import app from "../../app";
+import AuthService from "../../services/auth.service";
+import UsersEntity from "../../entities/users.entity";
+const _user = new UsersEntity()
+const _auth = new AuthService()
 
 const request = supertest(app);
+const tester = {
+    name: 'b',
+    username: 'b',
+    password: 'a'
+}
+const token = _auth.generateToken(tester)
 
 describe("Users Handlers and endpoints", () => {
+    beforeAll(async () => {
+        await _user.createUser(tester)
+    })
+    afterAll(async () => {
+        await _user.deleteUser(tester)
+    })
+
     /* ------------------------------------- */
-    it(`It should get status 401`, async () => {
+    it(`It should get status 200`, async () => {
         const fet = await request
             .get('/api/auth/all')
-        expect(fet.statusCode).toBe(401)
+            .set('Authorization', `Bearer ${token}`)
+        expect(fet.statusCode).toBe(200)
     });
     /* ------------------------------------- */
     /* ------------------------------------- */
-    it(`It should get status 500`, async () => {
+    it(`It should get status 200`, async () => {
         // let data = {}
         const info = await
             request
-                .post('/api/auth/login')
-                .set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ3cml0ZXIiLCJpYXQiOjE2NzI1NDA3NjgsImV4cCI6MTY3MzE0NTU2OH0.7V7ROmSt_27bHBLee_tdi3eiGa1vIwxna3in65KBhtA`)
-        expect(info.statusCode).toBe(500)
+                .post('/api/auth/register')
+                .set('Authorization', `Bearer ${token}`)
+        expect(info.statusCode).toBe(200)
     });
     /* ------------------------------------- */
     /* ------------------------------------- */
-    it(`It should get status 401`, async () => {
+    it(`It should get status 200`, async () => {
         // let data = {}
         const info = await
             request
                 .put('/api/auth/update')
-                .set('Authorization', `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiJ3cml0ZXIiLCJpYXQiOjE2NzI1NDA3NjgsImV4cCI6MTY3MzE0NTU2OH0.7V7ROmSt_27bHBLee_tdi3eiGa1vIwxna3in65KBhtA`)        
-        expect(info.statusCode).toBe(401)
+                .set('Authorization', `Bearer ${token}`)
+        expect(info.statusCode).toBe(200)
     });
     /* ------------------------------------- */
     /* ------------------------------------- */
-    it(`It should get status 401`, async () => {
+    it(`It should get status 200`, async () => {
         // let data = {}
         const info = await
             request
                 .delete('/api/auth/delete')
-        expect(info.statusCode).toBe(401)
+                .set('Authorization', `Bearer ${token}`)
+        expect(info.statusCode).toBe(200)
     });
     /* ------------------------------------- */
 

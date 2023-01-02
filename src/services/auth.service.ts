@@ -46,8 +46,8 @@ class AuthService {
     }
   }
 
-  async deleteUser(id: number): Promise<string> {
-    const deletedUser = await entity.deleteUser(id);
+  async deleteUser(user:User): Promise<string> {
+    const deletedUser = await entity.deleteUser(user);
     return deletedUser;
   }
 
@@ -74,10 +74,10 @@ class AuthService {
     return { ...isUser, token };
   }
 
+  // generate token
   generateToken(user: User): string {
-    // generate token
     const token = jwt.sign({ sub: user.username }, JWTSecret, {
-      expiresIn: '7d', // expires in 24 hours
+      expiresIn: '6000', // expires in 24 hours
     });
 
     return token;
